@@ -6,7 +6,8 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  TextInput
+  TextInput,
+  Modal,
 } from "react-native"
 
 const style = StyleSheet.create({
@@ -47,7 +48,8 @@ class App extends React.Component {
 
     this.state = {
       habits: ["Leetcode", "Running", "Meditation"],
-      inputValue: ""
+      inputValue: "",
+      modalVisable: false,
     }
   }
 
@@ -61,17 +63,41 @@ class App extends React.Component {
     }
   }
 
+  _setModalVisible(visible) {
+    this.setState({ modalVisible: visible });
+  }
+
   render() {
-    const { habits, inputValue } = this.state
+    const { habits, inputValue, modalVisable } = this.state
     return (
       <SafeAreaView style={style.container}>
-        <Button title="Add" onPress={this._habitAddHandler.bind(this)} />
-        <TextInput
-          placeholder="New Habit"
-          style={style.textInput}
-          onChangeText={this._habitInputHandler.bind(this)}
-          value={inputValue}
-        />
+        <Button title="Add New Habit" onPress={() => {this._setModalVisible(!this.state.modalVisible);}} />
+
+        <Modal
+          animationType="slide"
+          visible={this.state.modalVisible}>
+          <SafeAreaView>
+            <View>
+              <TextInput
+                placeholder="New Habit"
+                style={style.textInput}
+                onChangeText={this._habitInputHandler.bind(this)}
+                value={inputValue}
+              />
+              <Button
+                title="Add"
+                onPress={() => {
+                  this._habitAddHandler.bind(this);
+                }}/>  
+              <Button
+                title="Cancel"
+                onPress={() => {
+                  this._setModalVisible(!this.state.modalVisible);
+                }}/>          
+            </View>
+          </SafeAreaView>
+        </Modal>
+
         <ScrollView>
           {habits.map((title, key) => (
             <HabitRow key={key} title={title} />
