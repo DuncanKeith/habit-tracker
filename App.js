@@ -49,7 +49,7 @@ class App extends React.Component {
     this.state = {
       habits: ["Leetcode", "Running", "Meditation"],
       inputValue: "",
-      modalVisable: false
+      modalVisible: false
     }
   }
 
@@ -68,20 +68,20 @@ class App extends React.Component {
   }
 
   _presentModal = () => {
-    this.setState({ modalVisable: true })
+    this.setState({ modalVisible: true })
   }
 
   _hideModal = () => {
-    this.setState({ modalVisable: false })
+    this.setState({ modalVisible: false })
   }
 
   render() {
-    const { habits, inputValue, modalVisable } = this.state
+    const { habits, inputValue, modalVisible } = this.state
     return (
       <SafeAreaView style={style.container}>
         <Button title="Add New Habit" onPress={this._presentModal.bind(this)} />
 
-        <Modal animationType="slide" visible={modalVisable}>
+        <Modal animationType="slide" visible={modalVisible}>
           <SafeAreaView>
             <View>
               <TextInput
