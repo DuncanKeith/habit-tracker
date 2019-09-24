@@ -1,5 +1,5 @@
 import React from "react"
-import { StyleSheet, Text, View, ScrollView, SafeAreaView } from "react-native"
+import { StyleSheet, Text, View, ScrollView, SafeAreaView, Button, TextInput} from "react-native"
 
 const style = StyleSheet.create({
   container: {
@@ -17,6 +17,11 @@ const style = StyleSheet.create({
     backgroundColor: "#00f",
     alignItems: "flex-start",
     alignContent: "flex-start"
+  },
+  textInput: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'black'
   }
 })
 
@@ -37,6 +42,8 @@ class App extends React.Component {
     habits = ["Leetcode", "Running", "Meditation"]
     return (
       <SafeAreaView style={style.container}>
+        <Button title="Add"/>
+        <TextInput placeholder="New Habbit" style={style.textInput}/>
         <ScrollView>
           {habits.map((title, key) => (
             <HabitRow key={key} title={title} />
