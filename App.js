@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState } from "react"
 import { StyleSheet, Text, View, ScrollView, SafeAreaView, Button, TextInput} from "react-native"
 
 const style = StyleSheet.create({
@@ -40,10 +40,27 @@ class App extends React.Component {
 
   render() {
     habits = ["Leetcode", "Running", "Meditation"]
+
+    const[enteredHabit, setEnteredHabit] = useState('');
+
+    const habitInputHandler = (enteredText) => {
+      setEnteredHabit(enteredHabit);
+    };
+
+    const addHabitHandler = () => {
+      console.log(enteredHabit);
+    };
+
     return (
       <SafeAreaView style={style.container}>
-        <Button title="Add"/>
-        <TextInput placeholder="New Habbit" style={style.textInput}/>
+        <Button 
+          title="Add"
+          onPress={addHabitHandler}/>
+        <TextInput 
+          placeholder="New Habit" 
+          style={style.textInput} 
+          onChangeText={habitInputHandler}
+          value={enteredHabit}/>
         <ScrollView>
           {habits.map((title, key) => (
             <HabitRow key={key} title={title} />
