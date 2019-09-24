@@ -63,15 +63,19 @@ class App extends React.Component {
     }
   }
 
-  _setModalVisible(visible) {
+  _presentModal = () => {
     this.setState({ modalVisible: visible });
+  }
+
+  _hideModal = () => {
+    this.setState({ modalVisible: !visible });
   }
 
   render() {
     const { habits, inputValue, modalVisable } = this.state
     return (
       <SafeAreaView style={style.container}>
-        <Button title="Add New Habit" onPress={() => {this._setModalVisible(!this.state.modalVisible);}} />
+        <Button title="Add New Habit" onPress={this._presentModal.bind(this)} />
 
         <Modal
           animationType="slide"
@@ -86,13 +90,11 @@ class App extends React.Component {
               />
               <Button
                 title="Add"
-                onPress={() => {
-                  this._habitAddHandler.bind(this);
-                }}/>  
+                onPress={this._habitAddHandler.bind(this)}/>  
               <Button
                 title="Cancel"
                 onPress={() => {
-                  this._setModalVisible(!this.state.modalVisible);
+                  this._hideModal.bind(this);
                 }}/>          
             </View>
           </SafeAreaView>
