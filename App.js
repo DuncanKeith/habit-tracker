@@ -6,7 +6,8 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  TextInput
+  TextInput,
+  Modal
 } from "react-native"
 
 const style = StyleSheet.create({
@@ -47,7 +48,8 @@ class App extends React.Component {
 
     this.state = {
       habits: ["Leetcode", "Running", "Meditation"],
-      inputValue: ""
+      inputValue: "",
+      modalVisible: false
     }
   }
 
@@ -57,21 +59,43 @@ class App extends React.Component {
 
   _habitAddHandler = () => {
     if (this.state.inputValue) {
-      this.setState({ habits: [...this.state.habits, this.state.inputValue] })
+      this.setState({
+        habits: [...this.state.habits, this.state.inputValue],
+        inputValue: ""
+      })
+      this._hideModal()
     }
   }
 
+  _presentModal = () => {
+    this.setState({ modalVisible: true })
+  }
+
+  _hideModal = () => {
+    this.setState({ modalVisible: false })
+  }
+
   render() {
-    const { habits, inputValue } = this.state
+    const { habits, inputValue, modalVisible } = this.state
     return (
       <SafeAreaView style={style.container}>
-        <Button title="Add" onPress={this._habitAddHandler.bind(this)} />
-        <TextInput
-          placeholder="New Habit"
-          style={style.textInput}
-          onChangeText={this._habitInputHandler.bind(this)}
-          value={inputValue}
-        />
+        <Button title="Add New Habit" onPress={this._presentModal.bind(this)} />
+
+        <Modal animationType="slide" visible={modalVisible}>
+          <SafeAreaView>
+            <View>
+              <TextInput
+                placeholder="New Habit"
+                style={style.textInput}
+                onChangeText={this._habitInputHandler.bind(this)}
+                value={inputValue}
+              />
+              <Button title="Add" onPress={this._habitAddHandler.bind(this)} />
+              <Button title="Cancel" onPress={this._hideModal.bind(this)} />
+            </View>
+          </SafeAreaView>
+        </Modal>
+
         <ScrollView>
           {habits.map((title, key) => (
             <HabitRow key={key} title={title} />
