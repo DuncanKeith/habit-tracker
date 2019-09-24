@@ -7,7 +7,7 @@ import {
   SafeAreaView,
   Button,
   TextInput,
-  Modal,
+  Modal
 } from "react-native"
 
 const style = StyleSheet.create({
@@ -49,7 +49,7 @@ class App extends React.Component {
     this.state = {
       habits: ["Leetcode", "Running", "Meditation"],
       inputValue: "",
-      modalVisable: false,
+      modalVisable: false
     }
   }
 
@@ -59,16 +59,20 @@ class App extends React.Component {
 
   _habitAddHandler = () => {
     if (this.state.inputValue) {
-      this.setState({ habits: [...this.state.habits, this.state.inputValue] })
+      this.setState({
+        habits: [...this.state.habits, this.state.inputValue],
+        inputValue: ""
+      })
+      this._hideModal()
     }
   }
 
   _presentModal = () => {
-    this.setState({ modalVisible: visible });
+    this.setState({ modalVisable: true })
   }
 
   _hideModal = () => {
-    this.setState({ modalVisible: !visible });
+    this.setState({ modalVisable: false })
   }
 
   render() {
@@ -77,9 +81,7 @@ class App extends React.Component {
       <SafeAreaView style={style.container}>
         <Button title="Add New Habit" onPress={this._presentModal.bind(this)} />
 
-        <Modal
-          animationType="slide"
-          visible={this.state.modalVisible}>
+        <Modal animationType="slide" visible={modalVisable}>
           <SafeAreaView>
             <View>
               <TextInput
@@ -88,14 +90,8 @@ class App extends React.Component {
                 onChangeText={this._habitInputHandler.bind(this)}
                 value={inputValue}
               />
-              <Button
-                title="Add"
-                onPress={this._habitAddHandler.bind(this)}/>  
-              <Button
-                title="Cancel"
-                onPress={() => {
-                  this._hideModal.bind(this);
-                }}/>          
+              <Button title="Add" onPress={this._habitAddHandler.bind(this)} />
+              <Button title="Cancel" onPress={this._hideModal.bind(this)} />
             </View>
           </SafeAreaView>
         </Modal>
