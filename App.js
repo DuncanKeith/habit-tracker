@@ -1,4 +1,6 @@
 import React, { useState } from "react"
+import { createAppContainer } from "react-navigation"
+import { createBottomTabNavigator } from "react-navigation-tabs"
 import {
   StyleSheet,
   Text,
@@ -42,7 +44,7 @@ const HabitRow = ({ title }) => (
   </View>
 )
 
-class App extends React.Component {
+class HomeScreen extends React.Component {
   constructor(props) {
     super(props)
 
@@ -106,4 +108,13 @@ class App extends React.Component {
   }
 }
 
-export default App
+const AppNavigator = createBottomTabNavigator({
+  Home: {
+    screen: HomeScreen
+  },
+  SecondScreen: {
+    screen: HomeScreen
+  }
+})
+
+export default createAppContainer(AppNavigator)
