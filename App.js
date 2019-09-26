@@ -7,7 +7,8 @@ import {
   SafeAreaView,
   Button,
   TextInput,
-  Modal
+  Modal,
+  StatusBar
 } from "react-native"
 
 const style = StyleSheet.create({
@@ -79,6 +80,11 @@ class App extends React.Component {
     const { habits, inputValue, modalVisible } = this.state
     return (
       <SafeAreaView style={style.container}>
+
+        <StatusBar  
+            hidden = {true}            
+        /> 
+
         <Button title="Add New Habit" onPress={this._presentModal.bind(this)} />
 
         <Modal animationType="slide" visible={modalVisible}>
