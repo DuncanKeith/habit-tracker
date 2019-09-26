@@ -9,7 +9,8 @@ import {
   TextInput,
   Modal,
   StatusBar,
-  TouchableHighlight
+  TouchableHighlight,
+  Alert
 } from "react-native"
 
 const style = StyleSheet.create({
@@ -77,13 +78,28 @@ class App extends React.Component {
     this.setState({ modalVisible: false })
   }
 
-  _onLongPressButton = () => {
-    alert("Delete habit?")
+  _onLongPressButton = key => {
+    Alert.alert(
+      "Delete habit?",
+      "Delete habit?",
+      [
+        {
+          text: "Cancel",
+          onPress: () => {},
+          style: "cancel"
+        },
+        {
+          text: "Okay",
+          onPress: () => this._deleteHabit(key)
+        }
+      ],
+      { cancelable: true }
+    )
   }
 
   _deleteHabit = habitKey => {
-    var newHabits = habits.filter(function(value, index, arr){
-      return index != habitKey;
+    var newHabits = this.state.habits.filter(function(value, index, arr) {
+      return index != habitKey
     })
     this.setState({
       habits: newHabits
@@ -94,10 +110,7 @@ class App extends React.Component {
     const { habits, inputValue, modalVisible } = this.state
     return (
       <SafeAreaView style={style.container}>
-
-        <StatusBar  
-            hidden = {true}            
-        /> 
+        <StatusBar hidden={true} />
 
         <Button title="Add New Habit" onPress={this._presentModal.bind(this)} />
 
@@ -118,8 +131,12 @@ class App extends React.Component {
 
         <ScrollView>
           {habits.map((title, key) => (
-            <TouchableHighlight onLongPress={this._onLongPressButton} underlayColor="white">
-              <HabitRow key={key} title={title}/>
+            <TouchableHighlight
+              key={key}
+              onLongPress={() => this._onLongPressButton(key)}
+              underlayColor="white"
+            >
+              <HabitRow key={key} title={title} />
             </TouchableHighlight>
           ))}
         </ScrollView>
