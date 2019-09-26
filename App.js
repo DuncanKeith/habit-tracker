@@ -8,7 +8,8 @@ import {
   Button,
   TextInput,
   Modal,
-  StatusBar
+  StatusBar,
+  TouchableHighlight
 } from "react-native"
 
 const style = StyleSheet.create({
@@ -76,6 +77,19 @@ class App extends React.Component {
     this.setState({ modalVisible: false })
   }
 
+  _onLongPressButton = () => {
+    alert("Delete habit?")
+  }
+
+  _deleteHabit = habitKey => {
+    var newHabits = habits.filter(function(value, index, arr){
+      return index != habitKey;
+    })
+    this.setState({
+      habits: newHabits
+    })
+  }
+
   render() {
     const { habits, inputValue, modalVisible } = this.state
     return (
@@ -104,7 +118,9 @@ class App extends React.Component {
 
         <ScrollView>
           {habits.map((title, key) => (
-            <HabitRow key={key} title={title} />
+            <TouchableHighlight onLongPress={this._onLongPressButton} underlayColor="white">
+              <HabitRow key={key} title={title}/>
+            </TouchableHighlight>
           ))}
         </ScrollView>
       </SafeAreaView>
