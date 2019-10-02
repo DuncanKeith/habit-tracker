@@ -1,5 +1,7 @@
 import React, { useState } from "react"
 import { createAppContainer } from "react-navigation"
+
+import NewHabitScreen from "./NewHabitScreen"
 import { createBottomTabNavigator } from "react-navigation-tabs"
 import {
   StyleSheet,
@@ -152,7 +154,7 @@ const AppNavigator = createBottomTabNavigator({
     screen: HomeScreen
   },
   SecondScreen: {
-    screen: HomeScreen
+    screen: NewHabitScreen
   }
 })
 
