@@ -2,6 +2,7 @@ import React, { useState } from "react"
 import { createAppContainer } from "react-navigation"
 
 import NewHabitScreen from "./NewHabitScreen"
+import { createStackNavigator } from "react-navigation-stack"
 import { createBottomTabNavigator } from "react-navigation-tabs"
 import {
   StyleSheet,
@@ -149,9 +150,18 @@ class HomeScreen extends React.Component {
   }
 }
 
-const AppNavigator = createBottomTabNavigator({
+const HomeStack = createStackNavigator({
   Home: {
     screen: HomeScreen
+  },
+  NewHabit: {
+    screen: NewHabitScreen
+  }
+})
+
+const AppNavigator = createBottomTabNavigator({
+  Home: {
+    screen: HomeStack
   },
   SecondScreen: {
     screen: NewHabitScreen
