@@ -39,7 +39,7 @@ class NewHabitScreen extends React.Component {
   }
 
   cancel() {
-    this.props.navigation.goBack()
+    this.props.navigation.navigate("Home", { test: "value" })
   }
 
   addHabit() {}

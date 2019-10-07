@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import { withNavigation } from "react-navigation"
+import { withNavigation, withNavigationFocus } from "react-navigation"
 
 import {
   StyleSheet,
@@ -55,6 +55,12 @@ class HomeScreen extends React.Component {
       habits: ["Leetcode", "Running", "Meditation"],
       inputValue: "",
       modalVisible: false
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.isFocused !== this.props.isFocused) {
+      console.log(this.props.navigation.getParam("test"))
     }
   }
 
@@ -150,4 +156,4 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default withNavigation(HomeScreen)
+export default withNavigationFocus(withNavigation(HomeScreen))
