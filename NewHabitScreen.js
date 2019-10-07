@@ -1,4 +1,5 @@
 import React from "react"
+import { withNavigation } from "react-navigation"
 import {
   View,
   SafeAreaView,
@@ -37,7 +38,9 @@ class NewHabitScreen extends React.Component {
     super(props)
   }
 
-  cancel() {}
+  cancel() {
+    this.props.navigation.goBack()
+  }
 
   addHabit() {}
 
@@ -60,4 +63,4 @@ class NewHabitScreen extends React.Component {
   }
 }
 
-export default NewHabitScreen
+export default withNavigation(NewHabitScreen)
