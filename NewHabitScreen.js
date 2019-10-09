@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   Text
 } from "react-native"
+import { TextInput } from "react-native-gesture-handler"
 
 const style = StyleSheet.create({
   container: {
@@ -15,7 +16,9 @@ const style = StyleSheet.create({
   },
   nameContainer: {
     flex: 1,
-    backgroundColor: "#0f0"
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
   },
   hoursContainer: {
     flex: 1,
@@ -30,12 +33,23 @@ const style = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
+  },
+  textInput: {
+    padding: 10,
+    borderWidth: 1,
+    borderColor: "black"
   }
 })
 
 class NewHabitScreen extends React.Component {
   constructor(props) {
     super(props)
+
+    this.state = {
+      habitName: "",
+      hoursPerWeek: 0,
+      why: ""
+    }
   }
 
   cancel() {
@@ -44,11 +58,27 @@ class NewHabitScreen extends React.Component {
 
   addHabit() {}
 
+  _habitInputHandler = newValue => {
+    this.setState({ habitName: newValue })
+  }
+
   render() {
+    const {habitName, hoursPerWeek, why} = this.state
     return (
       <SafeAreaView style={style.container}>
-        <View style={style.nameContainer}></View>
-        <View style={style.hoursContainer}></View>
+        <View style={style.nameContainer}>
+          <Text>Habit</Text>
+          <TextInput
+            placeholder="Habit Name"
+            style={style.textInput}
+            onChangeText={this._habitInputHandler.bind(this)}
+            value={habitName}
+          />
+        </View>
+        <View style={style.hoursContainer}>
+          <Text>Hours Per Week</Text>
+          
+        </View>
         <View style={style.whyContainer}></View>
         <View style={style.confirmationContainer}>
           <TouchableOpacity onPress={this.cancel.bind(this)}>
