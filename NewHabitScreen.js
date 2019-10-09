@@ -5,7 +5,8 @@ import {
   SafeAreaView,
   StyleSheet,
   TouchableOpacity,
-  Text
+  Text,
+  Slider
 } from "react-native"
 import { TextInput } from "react-native-gesture-handler"
 
@@ -22,7 +23,8 @@ const style = StyleSheet.create({
   },
   hoursContainer: {
     flex: 1,
-    backgroundColor: "#f00"
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   whyContainer: {
     flex: 1,
@@ -62,6 +64,14 @@ class NewHabitScreen extends React.Component {
     this.setState({ habitName: newValue })
   }
 
+  _changeHours = hours => {
+    this.setState(() => {
+      return {
+        hoursPerWeek: parseFloat(hours),
+      };
+    })
+  }
+
   render() {
     const {habitName, hoursPerWeek, why} = this.state
     return (
@@ -76,8 +86,13 @@ class NewHabitScreen extends React.Component {
           />
         </View>
         <View style={style.hoursContainer}>
-          <Text>Hours Per Week</Text>
-          
+          <Text>Hours Per Week: {this.state.hoursPerWeek}</Text>
+          <Slider
+            step={1}
+            maximumValue={70}
+            onValueChange={this._changeHours.bind(this)}
+            value={hoursPerWeek}
+          />
         </View>
         <View style={style.whyContainer}></View>
         <View style={style.confirmationContainer}>
