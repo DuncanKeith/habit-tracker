@@ -17,7 +17,7 @@ const style = StyleSheet.create({
   },
   nameContainer: {
     flex: 1,
-    flexDirection: "row",
+    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center"
   },
@@ -28,7 +28,9 @@ const style = StyleSheet.create({
   },
   whyContainer: {
     flex: 1,
-    backgroundColor: "#00f"
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center"
   },
   confirmationContainer: {
     flex: 1,
@@ -72,6 +74,10 @@ class NewHabitScreen extends React.Component {
     })
   }
 
+  _whyInputHandler = newValue => {
+    this.setState({ why: newValue })
+  }
+
   render() {
     const {habitName, hoursPerWeek, why} = this.state
     return (
@@ -94,7 +100,15 @@ class NewHabitScreen extends React.Component {
             value={hoursPerWeek}
           />
         </View>
-        <View style={style.whyContainer}></View>
+        <View style={style.whyContainer}>
+        <Text>Why?</Text>
+          <TextInput
+            placeholder="Remind yourself of what motivates you"
+            style={style.textInput}
+            onChangeText={this._whyInputHandler.bind(this)}
+            value={why}
+          />
+        </View>
         <View style={style.confirmationContainer}>
           <TouchableOpacity onPress={this.cancel.bind(this)}>
             <Text>Cancel</Text>
