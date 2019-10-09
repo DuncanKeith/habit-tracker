@@ -60,7 +60,13 @@ class NewHabitScreen extends React.Component {
     this.props.navigation.navigate("Home", { test: "value" })
   }
 
-  addHabit() {}
+  addHabit() {
+    this.props.navigation.navigate("Home", {
+      habitNameKey: this.habitName,
+      hoursPerWeekKey: this.hoursPerWeek,
+      whyKey: this.why,
+    })
+  }
 
   _habitInputHandler = newValue => {
     this.setState({ habitName: newValue })
