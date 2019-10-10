@@ -1,5 +1,6 @@
 import React from "react"
 import { SafeAreaView, View, StyleSheet, Text } from "react-native"
+import { AnimatedCircularProgress } from 'react-native-circular-progress'
 
 const style = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#00f" },
@@ -36,7 +37,21 @@ class StatisticsScreen extends React.Component {
     const {hoursToday, dailyAvg, daysLeft} = this.state
     return (
       <SafeAreaView style={style.container}>
-        
+        <AnimatedCircularProgress
+                size={120}
+                width={15}
+                fill={100}
+                tintColor="#00e0ff"
+                onAnimationComplete={() => console.log('onAnimationComplete')}
+                backgroundColor="#3d5875">
+                {
+                  (fill) => (
+                    <Text>
+                      { this.state.fill }
+                    </Text>
+                  )
+                }
+              </AnimatedCircularProgress>
         <View style={style.titleContainer}>
           <Text>This Week's Progress</Text>
         </View>
@@ -44,6 +59,7 @@ class StatisticsScreen extends React.Component {
         <View style={style.thisWeekContainer}>
           <View style={{flex: 2, justifyContent: "center", alignItems: "center", backgroundColor: "#f0f"}}>
               {/* Here goes the circular weekly progress bar */}
+              
           </View>
           <View style={{flex: 1, flexDirection:"column", justifyContent: "center", backgroundColor: "#0ff"}}>
             <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center", backgroundColor: "#fff"}}>
