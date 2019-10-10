@@ -3,11 +3,10 @@ import { SafeAreaView, View, StyleSheet, Text } from "react-native"
 import { AnimatedCircularProgress } from 'react-native-circular-progress'
 
 const style = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#00f" },
+  container: { flex: 1 },
   thisWeekContainer: { 
     flex: 4,
-    flexDirection:"row",
-    backgroundColor: "#0f0"
+    flexDirection:"row"
   },
   allTimeStatsContainer: { 
     flex: 8,
@@ -17,8 +16,7 @@ const style = StyleSheet.create({
   titleContainer: {
     flex: 1, 
     justifyContent: "center", 
-    alignItems: "center", 
-    backgroundColor: "#999"
+    alignItems: "center"
   }
 })
 
@@ -29,50 +27,52 @@ class StatisticsScreen extends React.Component {
     this.state = {
       hoursToday: 0.0,
       dailyAvg: 0.0,
-      daysLeft: 0.0
+      daysLeft: 0.0,
+      progressPct: 60
     }
   }
 
+  
   render() {
-    const {hoursToday, dailyAvg, daysLeft} = this.state
+    const {hoursToday, dailyAvg, daysLeft, progressPct} = this.state
     return (
       <SafeAreaView style={style.container}>
-        <AnimatedCircularProgress
-                size={120}
-                width={15}
-                fill={100}
-                tintColor="#00e0ff"
-                onAnimationComplete={() => console.log('onAnimationComplete')}
-                backgroundColor="#3d5875">
-                {
-                  (fill) => (
-                    <Text>
-                      { this.state.fill }
-                    </Text>
-                  )
-                }
-              </AnimatedCircularProgress>
+        
         <View style={style.titleContainer}>
           <Text>This Week's Progress</Text>
         </View>
 
         <View style={style.thisWeekContainer}>
-          <View style={{flex: 2, justifyContent: "center", alignItems: "center", backgroundColor: "#f0f"}}>
+          <View style={{flex: 1, justifyContent: "center", alignItems: "center"}}>
               {/* Here goes the circular weekly progress bar */}
-              
+              <AnimatedCircularProgress
+                size={120}
+                width={15}
+                fill={progressPct}
+                tintColor="#00f"
+                backgroundColor="#fff"
+                duration={2000}>
+                {
+                  (progressPct) => (
+                    <Text>
+                      { progressPct.toPrecision(3) }%
+                    </Text>
+                  )
+                }
+              </AnimatedCircularProgress>
           </View>
-          <View style={{flex: 1, flexDirection:"column", justifyContent: "center", backgroundColor: "#0ff"}}>
-            <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center", backgroundColor: "#fff"}}>
+          <View style={{flex: 1, flexDirection:"column", justifyContent: "center"}}>
+            <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center"}}>
               {/* Here goes the first row of this week's progress stats */}
               <Text>Today</Text>
               <Text>{hoursToday} h</Text>
             </View>
-            <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center", backgroundColor: "#ff0"}}>
+            <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center"}}>
               {/* Here goes the second row of this week's progress stats */}
               <Text>Daily Avg.</Text>
               <Text>{dailyAvg} h</Text>
             </View>
-            <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center", backgroundColor: "#6f6"}}>
+            <View style={{flex: 1, flexDirection:"column", justifyContent: "center", alignItems: "center"}}>
               {/* Here goes the third row of this week's progress stats */}
               <Text>Days Left</Text>
               <Text>{daysLeft} days</Text>
