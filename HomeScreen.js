@@ -26,7 +26,7 @@ const style = StyleSheet.create({
   },
   habitBox: {
     flex: 1,
-    backgroundColor: "#00f",
+    backgroundColor: "#fff",
     alignItems: "flex-start",
     alignContent: "flex-start"
   },
@@ -34,6 +34,12 @@ const style = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "black"
+  },
+  bar: {
+    width: "100%",
+    height: 0,
+    borderBottomWidth: 1,
+    borderColor: "#c3c3c3"
   }
 })
 
@@ -109,7 +115,7 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    const { habits, inputValue, modalVisible } = this.state
+    const { habits } = this.state
     return (
       <SafeAreaView style={style.container}>
         <StatusBar hidden={true} />
@@ -117,7 +123,8 @@ class HomeScreen extends React.Component {
           title="Add New Habit"
           onPress={() => this.props.navigation.navigate("NewHabit")}
         />
-        <ScrollView>
+        <View style={style.bar} />
+        <ScrollView invertStickyHeaders={true} stickyHeaderIndices={[0]}>
           {habits.map((title, key) => (
             <TouchableHighlight
               key={key}
@@ -127,6 +134,7 @@ class HomeScreen extends React.Component {
               <HabitRow key={key} title={title} />
             </TouchableHighlight>
           ))}
+          <View style={style.bar} />
         </ScrollView>
       </SafeAreaView>
     )
