@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { withNavigation, withNavigationFocus } from "react-navigation"
 
 import {
@@ -8,8 +8,6 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  TextInput,
-  Modal,
   StatusBar,
   TouchableHighlight,
   Alert
@@ -78,14 +76,6 @@ class HomeScreen extends React.Component {
     }
   }
 
-  _presentModal = () => {
-    this.setState({ modalVisible: true })
-  }
-
-  _hideModal = () => {
-    this.setState({ modalVisible: false })
-  }
-
   _onLongPressButton = key => {
     Alert.alert(
       "Delete habit?",
@@ -119,27 +109,10 @@ class HomeScreen extends React.Component {
     return (
       <SafeAreaView style={style.container}>
         <StatusBar hidden={true} />
-
         <Button
           title="Add New Habit"
           onPress={() => this.props.navigation.navigate("NewHabit")}
         />
-
-        <Modal animationType="slide" visible={modalVisible}>
-          <SafeAreaView>
-            <View>
-              <TextInput
-                placeholder="New Habit"
-                style={style.textInput}
-                onChangeText={this._habitInputHandler.bind(this)}
-                value={inputValue}
-              />
-              <Button title="Add" onPress={this._habitAddHandler.bind(this)} />
-              <Button title="Cancel" onPress={this._hideModal.bind(this)} />
-            </View>
-          </SafeAreaView>
-        </Modal>
-
         <ScrollView>
           {habits.map((title, key) => (
             <TouchableHighlight
