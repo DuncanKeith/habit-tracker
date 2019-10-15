@@ -28,7 +28,9 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "flex-start",
-    alignContent: "flex-start"
+    alignContent: "flex-start",
+    borderBottomWidth: 1,
+    borderColor: "#c3c3c3"
   },
   textInput: {
     padding: 10,
@@ -124,7 +126,7 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate("NewHabit")}
         />
         <View style={style.bar} />
-        <ScrollView invertStickyHeaders={true} stickyHeaderIndices={[0]}>
+        <ScrollView>
           {habits.map((title, key) => (
             <TouchableHighlight
               key={key}
@@ -134,7 +136,6 @@ class HomeScreen extends React.Component {
               <HabitRow key={key} title={title} />
             </TouchableHighlight>
           ))}
-          <View style={style.bar} />
         </ScrollView>
       </SafeAreaView>
     )
