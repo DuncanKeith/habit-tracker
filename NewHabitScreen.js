@@ -62,9 +62,9 @@ class NewHabitScreen extends React.Component {
 
   addHabit() {
     this.props.navigation.navigate("Home", {
-      habitNameKey: this.habitName,
-      hoursPerWeekKey: this.hoursPerWeek,
-      whyKey: this.why,
+      habitNameKey: this.state.habitName,
+      hoursPerWeekKey: this.state.hoursPerWeek,
+      whyKey: this.state.why,
     })
   }
 
