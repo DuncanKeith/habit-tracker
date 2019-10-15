@@ -30,7 +30,9 @@ const style = StyleSheet.create({
     flex: 1,
     backgroundColor: "#00f",
     alignItems: "flex-start",
-    alignContent: "flex-start"
+    alignContent: "flex-start",
+    borderBottomWidth: 1,
+    borderColor: "#c3c3c3"
   },
   textInput: {
     padding: 10,
@@ -124,22 +126,7 @@ class HomeScreen extends React.Component {
           title="Add New Habit"
           onPress={() => this.props.navigation.navigate("NewHabit")}
         />
-
-        <Modal animationType="slide" visible={modalVisible}>
-          <SafeAreaView>
-            <View>
-              <TextInput
-                placeholder="New Habit"
-                style={style.textInput}
-                onChangeText={this._habitInputHandler.bind(this)}
-                value={inputValue}
-              />
-              <Button title="Add" onPress={this._habitAddHandler.bind(this)} />
-              <Button title="Cancel" onPress={this._hideModal.bind(this)} />
-            </View>
-          </SafeAreaView>
-        </Modal>
-
+        <View style={style.bar} />
         <ScrollView>
           {habits.map((title, key) => (
             <TouchableHighlight
