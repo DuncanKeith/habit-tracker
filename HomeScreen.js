@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import { withNavigation, withNavigationFocus } from "react-navigation"
 
 import {
@@ -8,8 +8,6 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  TextInput,
-  Modal,
   StatusBar,
   TouchableHighlight,
   Alert
@@ -28,7 +26,7 @@ const style = StyleSheet.create({
   },
   habitBox: {
     flex: 1,
-    backgroundColor: "#00f",
+    backgroundColor: "#fff",
     alignItems: "flex-start",
     alignContent: "flex-start",
     borderBottomWidth: 1,
@@ -38,6 +36,12 @@ const style = StyleSheet.create({
     padding: 10,
     borderWidth: 1,
     borderColor: "black"
+  },
+  bar: {
+    width: "100%",
+    height: 0,
+    borderBottomWidth: 1,
+    borderColor: "#c3c3c3"
   }
 })
 
@@ -50,6 +54,10 @@ const HabitRow = ({ title }) => (
 )
 
 class HomeScreen extends React.Component {
+  static navigationOptions = {
+    header: null
+  }
+
   constructor(props) {
     super(props)
 
@@ -78,14 +86,6 @@ class HomeScreen extends React.Component {
       })
       this._hideModal()
     }
-  }
-
-  _presentModal = () => {
-    this.setState({ modalVisible: true })
-  }
-
-  _hideModal = () => {
-    this.setState({ modalVisible: false })
   }
 
   _onLongPressButton = key => {
@@ -117,11 +117,10 @@ class HomeScreen extends React.Component {
   }
 
   render() {
-    const { habits, inputValue, modalVisible } = this.state
+    const { habits } = this.state
     return (
       <SafeAreaView style={style.container}>
         <StatusBar hidden={true} />
-
         <Button
           title="Add New Habit"
           onPress={() => this.props.navigation.navigate("NewHabit")}
