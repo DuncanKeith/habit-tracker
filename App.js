@@ -10,7 +10,7 @@ import { Provider } from "react-redux"
 import { createStore } from "redux"
 
 const INITIAL_STATE = {
-  habits: ["Leetcode", "Running", "Meditation"]
+  habits: ["Leetcode", "Running", "Meditation", "Habit3"]
 }
 
 const reducer = (state = INITIAL_STATE, action) => {
