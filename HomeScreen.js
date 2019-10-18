@@ -9,7 +9,6 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  StatusBar,
   TouchableHighlight,
   Alert
 } from "react-native"
@@ -86,7 +85,6 @@ class HomeScreen extends React.Component {
     const { habits } = this.props
     return (
       <SafeAreaView style={style.container}>
-        <StatusBar hidden={true} />
         <Button
           title="Add New Habit"
           onPress={() => this.props.navigation.navigate("NewHabit")}
