@@ -62,7 +62,7 @@ class HomeScreen extends React.Component {
     super(props)
   }
 
-  _onLongPressButton = key => {
+  _onLongPressButton = habit => {
     Alert.alert(
       "Delete habit?",
       "Delete habit?",
@@ -74,7 +74,7 @@ class HomeScreen extends React.Component {
         },
         {
           text: "Okay",
-          onPress: () => this._deleteHabit(key)
+          onPress: () => this.props.deleteHabit(habit)
         }
       ],
       { cancelable: true }
@@ -94,7 +94,7 @@ class HomeScreen extends React.Component {
           {habits.map((title, key) => (
             <TouchableHighlight
               key={key}
-              onLongPress={() => this._onLongPressButton(key)}
+              onLongPress={() => this._onLongPressButton(title)}
               underlayColor="white"
             >
               <HabitRow key={key} title={title} />
@@ -112,4 +112,15 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(withNavigation(HomeScreen))
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteHabit: habit => {
+      dispatch({ type: "DELETE_HABIT", payload: { habit } })
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNavigation(HomeScreen))
