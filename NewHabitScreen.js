@@ -8,6 +8,8 @@ import {
   Text,
   Slider
 } from "react-native"
+
+import { connect } from "react-redux"
 import { TextInput } from "react-native-gesture-handler"
 
 const style = StyleSheet.create({
@@ -23,8 +25,8 @@ const style = StyleSheet.create({
   },
   hoursContainer: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
+    flexDirection: "column",
+    justifyContent: "center"
   },
   whyContainer: {
     flex: 1,
@@ -57,15 +59,12 @@ class NewHabitScreen extends React.Component {
   }
 
   cancel() {
-    this.props.navigation.navigate("Home", { test: "value" })
+    this.props.navigation.navigate("Home")
   }
 
   addHabit() {
-    this.props.navigation.navigate("Home", {
-      habitNameKey: this.state.habitName,
-      hoursPerWeekKey: this.state.hoursPerWeek,
-      whyKey: this.state.why,
-    })
+    this.props.createHabit(this.state.habitName)
+    this.props.navigation.navigate("Home")
   }
 
   _habitInputHandler = newValue => {
@@ -75,8 +74,8 @@ class NewHabitScreen extends React.Component {
   _changeHours = hours => {
     this.setState(() => {
       return {
-        hoursPerWeek: parseFloat(hours),
-      };
+        hoursPerWeek: parseFloat(hours)
+      }
     })
   }
 
@@ -85,7 +84,7 @@ class NewHabitScreen extends React.Component {
   }
 
   render() {
-    const {habitName, hoursPerWeek, why} = this.state
+    const { habitName, hoursPerWeek, why } = this.state
     return (
       <SafeAreaView style={style.container}>
         <View style={style.nameContainer}>
@@ -107,7 +106,7 @@ class NewHabitScreen extends React.Component {
           />
         </View>
         <View style={style.whyContainer}>
-        <Text>Why?</Text>
+          <Text>Why?</Text>
           <TextInput
             placeholder="Remind yourself of what motivates you"
             style={style.textInput}
@@ -128,4 +127,13 @@ class NewHabitScreen extends React.Component {
   }
 }
 
-export default withNavigation(NewHabitScreen)
+const mapDispatchToProps = dispatch => {
+  return {
+    createHabit: habit => dispatch({ type: "CREATE_HABIT", payload: { habit } })
+  }
+}
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(withNavigation(NewHabitScreen))

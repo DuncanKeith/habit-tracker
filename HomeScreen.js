@@ -1,5 +1,6 @@
 import React from "react"
-import { withNavigation, withNavigationFocus } from "react-navigation"
+import { withNavigation } from "react-navigation"
+import { connect } from "react-redux"
 
 import {
   StyleSheet,
@@ -8,7 +9,6 @@ import {
   ScrollView,
   SafeAreaView,
   Button,
-  StatusBar,
   TouchableHighlight,
   Alert
 } from "react-native"
@@ -60,35 +60,9 @@ class HomeScreen extends React.Component {
 
   constructor(props) {
     super(props)
-
-    this.state = {
-      habits: ["Leetcode", "Running", "Meditation"],
-      inputValue: "",
-      modalVisible: false
-    }
   }
 
-  componentDidUpdate(prevProps) {
-    if (prevProps.isFocused !== this.props.isFocused) {
-      console.log(this.props.navigation.getParam("test"))
-    }
-  }
-
-  _habitInputHandler = newValue => {
-    this.setState({ inputValue: newValue })
-  }
-
-  _habitAddHandler = () => {
-    if (this.state.inputValue) {
-      this.setState({
-        habits: [...this.state.habits, this.state.inputValue],
-        inputValue: ""
-      })
-      this._hideModal()
-    }
-  }
-
-  _onLongPressButton = key => {
+  _onLongPressButton = habit => {
     Alert.alert(
       "Delete habit?",
       "Delete habit?",
@@ -100,27 +74,17 @@ class HomeScreen extends React.Component {
         },
         {
           text: "Okay",
-          onPress: () => this._deleteHabit(key)
+          onPress: () => this.props.deleteHabit(habit)
         }
       ],
       { cancelable: true }
     )
   }
 
-  _deleteHabit = habitKey => {
-    var newHabits = this.state.habits.filter(function(value, index, arr) {
-      return index != habitKey
-    })
-    this.setState({
-      habits: newHabits
-    })
-  }
-
   render() {
-    const { habits } = this.state
+    const { habits } = this.props
     return (
       <SafeAreaView style={style.container}>
-        <StatusBar hidden={true} />
         <Button
           title="Add New Habit"
           onPress={() => this.props.navigation.navigate("NewHabit")}
@@ -130,7 +94,7 @@ class HomeScreen extends React.Component {
           {habits.map((title, key) => (
             <TouchableHighlight
               key={key}
-              onLongPress={() => this._onLongPressButton(key)}
+              onLongPress={() => this._onLongPressButton(title)}
               underlayColor="white"
             >
               <HabitRow key={key} title={title} />
@@ -142,4 +106,21 @@ class HomeScreen extends React.Component {
   }
 }
 
-export default withNavigationFocus(withNavigation(HomeScreen))
+const mapStateToProps = state => {
+  return {
+    habits: state.habits
+  }
+}
+
+const mapDispatchToProps = dispatch => {
+  return {
+    deleteHabit: habit => {
+      dispatch({ type: "DELETE_HABIT", payload: { habit } })
+    }
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withNavigation(HomeScreen))
