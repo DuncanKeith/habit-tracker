@@ -1,13 +1,15 @@
-import { createAppContainer } from "react-navigation"
 import React from "react"
-import NewHabitScreen from "./NewHabitScreen"
-import HomeScreen from "./HomeScreen"
-import StatisticsScreen from "./StatisticsScreen"
+
+import { createAppContainer } from "react-navigation"
 import { createStackNavigator } from "react-navigation-stack"
 import { createBottomTabNavigator } from "react-navigation-tabs"
 
-import { Provider } from "react-redux"
 import { createStore } from "redux"
+import { Provider } from "react-redux"
+
+import NewHabitScreen from "./Screens/NewHabitScreen"
+import HomeScreen from "./Screens/HomeScreen"
+import StatisticsScreen from "./Screens/StatisticsScreen"
 
 const INITIAL_STATE = {
   habits: ["Leetcode", "Running", "Meditation", "Habit3"]
