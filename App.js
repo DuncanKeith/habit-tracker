@@ -16,7 +16,7 @@ const INITIAL_STATE = {
 const reducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case "CREATE_HABIT":
-      return { ...state, habits: [...habits, action.payload.habit] }
+      return { ...state, habits: [...state.habits, action.payload.habit] }
     case "DELETE_HABIT":
       return {
         ...state,
