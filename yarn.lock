@@ -3665,9 +3665,10 @@ react-native-branch@~3.0.1:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/react-native-branch/-/react-native-branch-3.0.1.tgz#5b07b61cbd290168cd3c3662e017ebe0f356d2ca"
 
-react-native-chart-kit@^3.7.0:
-  version "3.7.0"
-  resolved "https://registry.yarnpkg.com/react-native-chart-kit/-/react-native-chart-kit-3.7.0.tgz#61eec996dd09514deafb407c955c919eb4d6ddd1"
+react-native-chart-kit@^3.10.0:
+  version "3.10.0"
+  resolved "https://registry.yarnpkg.com/react-native-chart-kit/-/react-native-chart-kit-3.10.0.tgz#9e975e968d79437000545a7fbbed2c1dd23c26db"
+  integrity sha512-oV8DYaPZL8gUJhsV8XcToFeg0ZfI1QVDFI5yOOVP2UQ088pPIq20Qxbj+h4e6oMcCRgVLzdbVprtUUGn6BMAjA==
   dependencies:
     lodash "^4.17.11"
     paths-js "^0.4.10"
